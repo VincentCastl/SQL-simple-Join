@@ -1,2 +1,3 @@
 # SQL-simple-Join
-This will give  you the format for Joining one table with another
+Similar to the SEARCH/FORMAT repositary, this one will focus on easier formats to ease one in the SQL way.
+Each Exameple will have a description to further emphasize each section.
