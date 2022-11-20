@@ -1,0 +1,38 @@
+/*+ETLprogram {
+	depend:{
+		replace:[
+			{name:"tableItems"},
+			{name:"tableBin"}
+		]
+	}
+}*/
+
+with t3 as (
+SELECT distinct code3, fnsku, asin
+FROM tableItems
+WHERE source_region_id = 2
+)
+
+SELECT  bin.item_Age, bin.bin_id, bin.codeUnique, coalesce(sku1.code1, sku2.code1,bin.codeUnique) asn, bin.owner, bin.quantity
+
+FROM tableBin AS bin
+
+left join
+(
+    select distinct t3.code1, t3.code3
+    from t3
+)sku1
+on bin.codeUnique = sku1.code3
+left join
+(
+    select distinct t3.code1, t3.code2
+    from t3
+)sku2
+on bin.codeUnique= sku2.code2
+
+
+WHERE 
+bin.region_id = 2
+AND bin.date = CURRENT_DATE -1
+AND bin.Location='Warehouse1'
+and bin.item_age between '2021-11-01' and '2022-11-15'
